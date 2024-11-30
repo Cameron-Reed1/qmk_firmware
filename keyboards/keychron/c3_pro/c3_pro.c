@@ -30,7 +30,7 @@ void keyboard_post_init_kb(void) {
     if (last_layer) {
         default_layer_set(last_layer);
     } else {
-        default_layer_set(1U << 2);
+        default_layer_set(1U << 0);
     }
 
     keyboard_post_init_user();
@@ -50,12 +50,11 @@ void eeconfig_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (default_layer_state == (1U << 0)) {
-        gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
-        gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
-    }
-    if (default_layer_state == (1U << 2)) {
         gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
         gpio_write_pin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
+    } else if (default_layer_state == (1U << 1)) {
+        gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
     }
 
     if (os_switch_timer_buffer && timer_elapsed32(os_switch_timer_buffer) > 300) {
@@ -83,7 +82,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case KC_OSSW:
             if (record->event.pressed) {
                 default_layer_xor(1U << 0);
-                default_layer_xor(1U << 2);
+                default_layer_xor(1U << 1);
                 eeconfig_update_default_layer(default_layer_state);
                 os_switch_timer_buffer = timer_read32();
 #ifdef LED_MATRIX_ENABLE

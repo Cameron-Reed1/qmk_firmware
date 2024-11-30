@@ -17,10 +17,12 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
+
 enum layers {
     WIN_BASE,
-    WIN_FN,
     MAC_BASE,
+
+    WIN_FN,
     MAC_FN,
 };
 
