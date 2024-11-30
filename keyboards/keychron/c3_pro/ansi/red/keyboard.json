@@ -18,6 +18,9 @@
             "wave_left_right": true,
             "wave_up_down": true
         },
+        "default": {
+            "animation": "solid_reactive_simple",
+        },
         "driver": "snled27351",
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
