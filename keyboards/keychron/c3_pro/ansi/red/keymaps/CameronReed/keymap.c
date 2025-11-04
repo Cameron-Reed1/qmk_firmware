@@ -96,5 +96,13 @@ bool led_matrix_indicators_user(void) {
         led_matrix_set_value(15, 0xFF);  // Top right key, labeled PB
     }
 
+    if (host_keyboard_led_state().caps_lock) {
+        if (IS_LAYER_ON(GAME)) {
+            led_matrix_set_value(50, 0xff); // Caps
+        } else {
+            led_matrix_set_value(0, 0xff);  // ESC
+        }
+    }
+
     return true;
 }
